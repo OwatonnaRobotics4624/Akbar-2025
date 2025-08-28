@@ -1,0 +1,85 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.351117549668874,
+        "y": 7.032326158940396
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.677327694807804,
+        "y": 5.6138690835007585
+      },
+      "isLocked": false,
+      "linkedName": "coralStation"
+    },
+    {
+      "anchor": {
+        "x": 3.9734478476821193,
+        "y": 5.223572019867549
+      },
+      "prevControl": {
+        "x": 2.5445095672682303,
+        "y": 6.388247523852205
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ScoreTop2"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.44105523495465854,
+      "rotationDegrees": -60.060278256578435
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.5051229508196724,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 3.0,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 540.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "L4Position",
+      "waypointRelativePos": 0.20594262295081972,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4Position"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -61.23235066115619
+  },
+  "reversed": false,
+  "folder": "BlueBargeAuto",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 125.96051719664486
+  },
+  "useDefaultConstraints": true
+}
