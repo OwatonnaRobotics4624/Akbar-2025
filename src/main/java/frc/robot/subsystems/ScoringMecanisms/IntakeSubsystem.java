@@ -33,7 +33,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    m_motor1.set(speed);
+    m_motor1.set(-speed);
     m_motor2.set(-speed);
   }
   public void Troff(){

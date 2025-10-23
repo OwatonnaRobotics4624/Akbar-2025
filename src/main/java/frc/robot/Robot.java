@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private boolean kUseLimelight = false;
-  private final DigitalInput input = new DigitalInput(0);
+  private final DigitalInput input = new DigitalInput(3);
   private final RobotContainer m_robotContainer;
   private SendableChooser<String> autoPath = new SendableChooser<>();
   public final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();

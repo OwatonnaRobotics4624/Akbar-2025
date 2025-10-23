@@ -26,7 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setElevatorHeight(double low, double high, double speed){
       if (getEncoderPosition() > -high) {
         setSpeed(-speed);
-      } else if (getEncoderPosition() < -low){
+      } else if (getEncoderPosition() < -low){  
         setSpeed(speed);
       } else {
         setSpeed(0);
