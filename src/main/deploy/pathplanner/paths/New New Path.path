@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.697,
-        "y": 2.979
+        "x": 5.224062628305826,
+        "y": 4.0218947859107965
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.931830298013245,
-        "y": 2.3034412251655625
+        "x": 4.974074226347183,
+        "y": 4.0194866982538215
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.787,
-        "y": 0.756
+        "x": 2.90555586963079,
+        "y": 4.0218947859107965
       },
       "prevControl": {
-        "x": 2.431779112459678,
-        "y": 1.3015595784289282
+        "x": 3.155533092595325,
+        "y": 4.01852017497926
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,22 +31,10 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "PickupPosition",
-      "waypointRelativePos": 0.1059516023544854,
-      "endWaypointRelativePos": 1.0,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "PickupPosition"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.5,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 540.0,
     "nominalVoltage": 12.0,
@@ -54,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -127.30394827798344
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "RedBargeAuto",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 60.25511870305789
+    "rotation": 180.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

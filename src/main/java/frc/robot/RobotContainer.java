@@ -48,15 +48,15 @@ public class RobotContainer {
     Joystick Mechanic = new Joystick(2);
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-    private static final double JOYSTICK_DEADBAND = 0;
-    private static final double SpeedMultiplier = 0.7;
+    private static final double JOYSTICK_DEADBAND = 0.02;
+    private static final double SpeedMultiplier = 0.8;
     public final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
     public final PivotSubsystem m_pivotSubsystem = new PivotSubsystem(3);
     public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(1, 2);
     public final Pigeon2 jamaica = new Pigeon2(18, "SwerveCanivore");
     /* Setting up bindings for necessary control of the swerve drive platform */
-    private final SlewRateLimiter xLimiter = new SlewRateLimiter(6.0);
-    private final SlewRateLimiter yLimiter = new SlewRateLimiter(6.0);
+    private final SlewRateLimiter xLimiter = new SlewRateLimiter(7.5);
+    private final SlewRateLimiter yLimiter = new SlewRateLimiter(7.5);
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
@@ -95,7 +95,7 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> {
             double leftY = playerOne.getLeftY() * SpeedMultiplier;
             double leftX = playerOne.getLeftX() * SpeedMultiplier;
-            double rightX = playerOne.getRightX() * SpeedMultiplier;
+            double rightX = playerOne.getRightX();
 
             double velocityX = Math.abs(leftY) > JOYSTICK_DEADBAND ? -leftY * MaxSpeed : 0;
             double velocityY = Math.abs(leftX) > JOYSTICK_DEADBAND ? -leftX * MaxSpeed : 0;
