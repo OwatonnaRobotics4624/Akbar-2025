@@ -37,6 +37,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
+import frc.robot.commands.L4Reef;
+import frc.robot.commands.TranslationAlignToTag;
+import frc.robot.commands.AlignWithTarget;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ScoringMecanisms.ElevatorSubsystem;
@@ -48,15 +51,16 @@ public class RobotContainer {
     Joystick Mechanic = new Joystick(2);
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-    private static final double JOYSTICK_DEADBAND = 0.02;
+    private static final double JOYSTICK_DEADBAND = 0.05;
     private static final double SpeedMultiplier = 0.8;
     public final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
     public final PivotSubsystem m_pivotSubsystem = new PivotSubsystem(3);
     public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(1, 2);
     public final Pigeon2 jamaica = new Pigeon2(18, "SwerveCanivore");
     /* Setting up bindings for necessary control of the swerve drive platform */
-    private final SlewRateLimiter xLimiter = new SlewRateLimiter(7.5);
-    private final SlewRateLimiter yLimiter = new SlewRateLimiter(7.5);
+    private final double SlewRateVar = 7.5;
+    private final SlewRateLimiter xLimiter = new SlewRateLimiter(SlewRateVar);
+    private final SlewRateLimiter yLimiter = new SlewRateLimiter(SlewRateVar);
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
@@ -77,6 +81,7 @@ public class RobotContainer {
     }
     public void setupAutoBuilder() {
         drivetrain.configureAutoBuilder();
+        
         //drivetrain.registerTelemetry(logger::telemeterize);
     }
     private void configureBindings() {
@@ -95,7 +100,7 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> {
             double leftY = playerOne.getLeftY() * SpeedMultiplier;
             double leftX = playerOne.getLeftX() * SpeedMultiplier;
-            double rightX = playerOne.getRightX();
+            double rightX = playerOne.getRightX() * 1.2;
 
             double velocityX = Math.abs(leftY) > JOYSTICK_DEADBAND ? -leftY * MaxSpeed : 0;
             double velocityY = Math.abs(leftX) > JOYSTICK_DEADBAND ? -leftX * MaxSpeed : 0;
@@ -172,18 +177,27 @@ public class RobotContainer {
         .whileTrue(new RunCommand(() -> m_intakeSubsystem.setSpeed(0.22), m_intakeSubsystem))
         .onFalse(new RunCommand(() -> m_intakeSubsystem.setSpeed(0), m_intakeSubsystem));
     playerOne.a()
-        .whileTrue(new RunCommand(() -> m_intakeSubsystem.setSpeed(-0.32), m_intakeSubsystem))
+        /*.whileTrue(new RunCommand(() -> m_intakeSubsystem.setSpeed(-0.32), m_intakeSubsystem))
         .onFalse(new RunCommand(() -> m_intakeSubsystem.setSpeed(0), m_intakeSubsystem));
+        */
+        .onTrue(new RunCommand(() -> point.withModuleDirection(new Rotation2d(0))));
     playerOne.start()
         .onFalse(new RunCommand(() -> {
           m_elevatorSubsystem.L2Reef();
           m_pivotSubsystem.L2Reef();
         }, m_elevatorSubsystem, m_pivotSubsystem));
+    /*
     playerOne.povUp()
         .onFalse(new RunCommand(() -> {
           m_elevatorSubsystem.highReef();
           m_pivotSubsystem.highScore();
       }, m_elevatorSubsystem, m_pivotSubsystem));
+       */
+      /* Target the left coral reef stick */
+    playerOne.povUp().whileTrue(new TranslationAlignToTag(0, drivetrain));
+      /* Target the right coral reef stick */
+    playerOne.povRight().whileTrue(new TranslationAlignToTag(1, drivetrain));
+
     playerOne.povLeft()
         .onFalse(new RunCommand(() -> {
           m_elevatorSubsystem.Pickup();
@@ -194,12 +208,13 @@ public class RobotContainer {
           m_elevatorSubsystem.bottomPosition();
           m_pivotSubsystem.bottomPosition(); 
         }, m_elevatorSubsystem, m_pivotSubsystem));
+    /*
     playerOne.povRight()
         .onFalse(new RunCommand(() -> {
           m_elevatorSubsystem.L3Reef();
           m_pivotSubsystem.L3Reef();
         }, m_elevatorSubsystem, m_pivotSubsystem));
-
+    */
         drivetrain.registerTelemetry(logger::telemeterize);
     new Trigger(() -> Mechanic.getRawButton(4))
         .whileTrue(drivetrain.pathfindingCommand("TopSource"));
@@ -232,7 +247,10 @@ public class RobotContainer {
                 m_intakeSubsystem.setSpeed(-0.6), m_intakeSubsystem));
             NamedCommands.registerCommand("StopIntake", new InstantCommand(() -> 
                 m_intakeSubsystem.setSpeed(0), m_intakeSubsystem));
-            
+            NamedCommands.registerCommand("CMD Align Left", new TranslationAlignToTag(0, drivetrain));
+            NamedCommands.registerCommand("CMD Align Right", new TranslationAlignToTag(1, drivetrain));
+            NamedCommands.registerCommand("CMD Align Center", new TranslationAlignToTag(2, drivetrain));
+            NamedCommands.registerCommand("ElevatorL4New", new L4Reef(m_elevatorSubsystem));
             NamedCommands.registerCommand("BottomPosition", new RunCommand(() -> {
                 m_elevatorSubsystem.bottomPosition();
                 m_pivotSubsystem.bottomPosition();
@@ -241,7 +259,12 @@ public class RobotContainer {
                 m_elevatorSubsystem.Pickup();
                 m_pivotSubsystem.pickupPosition();
             }, m_elevatorSubsystem, m_pivotSubsystem));
-
+            NamedCommands.registerCommand("PivotL4", new RunCommand(() -> {
+                m_pivotSubsystem.highScore();
+            }, m_pivotSubsystem));
+            NamedCommands.registerCommand("ElevatorL4", new RunCommand(() -> {
+                m_elevatorSubsystem.highReef();
+            }, m_elevatorSubsystem));
             Command autoCommand = AutoBuilder.buildAuto(autoName);
     
             System.out.println("Auto successfully loaded.");
