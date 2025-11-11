@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Open Start to J"
+            "pathName": null
           }
         },
         {
@@ -48,7 +48,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue J to Open CS"
+                  "pathName": null
                 }
               },
               {
@@ -86,7 +86,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Open CS to K"
+                  "pathName": null
                 }
               },
               {
@@ -155,7 +155,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue K to Open CS"
+                  "pathName": null
                 }
               },
               {
@@ -193,7 +193,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Open CS to L"
+                  "pathName": null
                 }
               },
               {
@@ -262,7 +262,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue L to Open CS"
+                  "pathName": null
                 }
               },
               {
@@ -297,6 +297,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "BLUE AUTOS",
+  "folder": null,
   "choreoAuto": false
 }

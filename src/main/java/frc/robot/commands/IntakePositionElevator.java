@@ -2,28 +2,26 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ScoringMecanisms.ElevatorSubsystem;
-public class BaseElevator extends Command{
+public class IntakePositionElevator extends Command{
     private final ElevatorSubsystem m_elevatorSubsystem;
 
-    public BaseElevator(ElevatorSubsystem elevatorSubsystem) {
+    public IntakePositionElevator(ElevatorSubsystem elevatorSubsystem){
         m_elevatorSubsystem = elevatorSubsystem;
         addRequirements(m_elevatorSubsystem);
     }
-
     @Override
     public void initialize() {
-        m_elevatorSubsystem.bottomPosition();
+        m_elevatorSubsystem.Pickup();
     }
 
     @Override
     public void execute() {
-        // No additional execution logic needed
     }
 
     @Override
     public boolean isFinished() {
-        double position = m_elevatorSubsystem.getEncoderPosition();
-        return position <= 5 && position >= -5;
+        double elevatorPosition = m_elevatorSubsystem.getEncoderPosition();
+        return (elevatorPosition <= -45 && elevatorPosition >= -55);
     }
 
     @Override

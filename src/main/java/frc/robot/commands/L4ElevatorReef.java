@@ -6,10 +6,10 @@ import frc.robot.Calibrations.DriverCalibrations;
 import frc.robot.Calibrations.FieldCalibrations;
 import frc.robot.subsystems.ScoringMecanisms.ElevatorSubsystem;
 
-public class L4Reef extends Command{
+public class L4ElevatorReef extends Command{
     private final ElevatorSubsystem m_elevatorSubsystem;
 
-    public L4Reef(ElevatorSubsystem elevatorSubsystem) {
+    public L4ElevatorReef(ElevatorSubsystem elevatorSubsystem) {
         m_elevatorSubsystem = elevatorSubsystem;
         addRequirements(m_elevatorSubsystem);
     }

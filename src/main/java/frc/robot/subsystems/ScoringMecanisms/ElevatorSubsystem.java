@@ -33,7 +33,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       }
   }
   public void highReef() {
-    setElevatorHeight(160, 152.5, 1);
+    setElevatorHeight(166, 158.5, 1);
   }
   public void L3Reef() {
     setElevatorHeight(40, 29.2, .7);
